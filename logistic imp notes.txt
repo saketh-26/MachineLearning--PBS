@@ -1,0 +1,193 @@
+
+Steps include : Problem Identification,Identification of required data,Data Preprocessing,Algorithm Selection
+		Training and Testing,Evaluation with the test data..
+
+Logistic Regression is a classification algorithm. 
+It is used to predict a binary outcome (1 / 0, Yes / No, True / False) 
+given a set of independent variables one or many. 
+To represent binary/categorical outcome, we use dummy variables. 
+You can also think of logistic regression as a special case of linear regression 
+when the outcome variable is categorical, where we are using log of odds as 
+dependent variable. 
+In simple words, 
+it predicts the probability of occurrence of an event by fitting data to a logit function.
+
+Logistic Regression is part of a larger class of algorithms known as Generalized Linear Model (glm). 
+In 1972, Nelder and Wedderburn proposed this model with an effort to provide a means of using linear 
+regression to the problems which were not directly suited for application of linear regression.
+
+
+The fundamental equation of generalized linear model is:
+
+g(E(y)) = α + βx1 + γx2
+Here, g() is the link function, 
+E(y) is the expectation of target variable and α + βx1 + γx2 is the linear predictor 
+ α,β,γ to be predicted). 
+The role of link function is to ‘link’ the expectation of y to linear predictor.
+
+It does not uses OLS (Ordinary Least Square) for parameter estimation. 
+Instead, it uses maximum likelihood estimation (MLE).
+Errors need to be independent but not normally distributed.
+
+Maximum likelihood estimation:
+
+In statistics, maximum likelihood estimation (MLE) is a method of estimating 
+the parameters of a probability distribution
+by maximizing a likelihood function, so that under the assumed 
+statistical model the observed data is most probable.
+
+Let’s understand it  using an example:
+
+We are provided a sample of 1000 customers. 
+
+We need to predict the probability whether a customer will buy (y) a particular magazine or not. 
+As you can see, we’ve a categorical outcome variable, we’ll use logistic regression.
+
+To start with logistic regression, 
+I’ll first write the simple linear regression equation with dependent variable 
+enclosed in a link function:
+
+                           g(y) = βo + β(Age)         ---- (a)
+
+Note: For ease of understanding, I’ve considered ‘Age’ as independent variable.
+
+In logistic regression, 
+we are only concerned about the probability of outcome dependent variable 
+( success or failure). As described above, g() is the link function. This 
+function is established using two things: Probability of Success(p) and 
+Probability of Failure(1-p). p should meet following criteria:
+
+It must always be positive (since p >= 0)
+It must always be less than equals to 1 (since p <= 1)
+Now, we’ll simply satisfy these 2 conditions and get to the core of logistic regression. 
+To establish link function, we’ll denote g() with ‘p’ initially and 
+eventually end up deriving this function.
+
+Since probability must always be positive, we’ll put the linear equation in 
+exponential form. 
+
+For any value of slope and dependent variable, exponent of this equation will never be negative.
+
+p = exp(βo + β(Age)) = e^(βo + β(Age))    ------- (b)
+
+To make the probability less than 1, we must divide p by a number greater than p. 
+This can simply be done by:
+
+p  =  exp(βo + β(Age)) / exp(βo + β(Age)) + 1   =   e^(βo + β(Age)) / e^(βo + β(Age)) + 1    ----- (c)
+Using (a), (b) and (c), we can redefine the probability as:
+
+              p = e^y/ 1 + e^y           --- (d)
+
+where p is the probability of success. This (d) is the Logit Function
+
+If p is the probability of success, 1-p will be the probability of failure which can be written as:
+
+q = 1 - p = 1 - (e^y/ 1 + e^y)    --- (e)
+where q is the probability of failure
+
+On dividing, (d) / (e), we get,
+
+p = e^y /1+e^y
+
+1- p = 1-(e^y/1+e^y)
+
+ 			p / 1-p(q) = e^y
+
+After taking log on both side, we get,
+
+log(p/1-p) = y
+
+log(p/1-p) is the link function. 
+Logarithmic transformation on the outcome variable allows us to model a
+non-linear association in a linear way.
+
+After substituting value of y, we’ll get:
+
+					log(p/1-p) = βo + β(Age) 
+
+
+Cost function (Logistic Regression)--> 
+
+J(theta) = -1/m(summation i =1 to n)[y^(i)log(p^(i))+(1-y^(i))log(1-p^(i))]
+
+
+Performance of Logistic Regression Model:
+
+To evaluate the performance of a logistic regression model, we must consider few metrics:
+
+-->Confusion Matrix:
+
+A confusion matrix is a table that is often used to describe the performance of a 
+classification model on a set of test data for which the true values are known.​
+Eachrowof the confusion matrix represents the instances of an actual class and each column represents 
+the instances of a predicted class​. 
+ 
+True positive and true negatives are the observations that are correctly predicted  
+
+True Positives (TP) - These are the correctly predicted positive values which means that the value 
+of actual class is yes and the value of predicted class is also yes. 
+
+True Negatives (TN) - These are the correctly predicted negative values which means that the value of
+actual class is no and value of predicted class is also no.                
+
+False positives and false negatives, these values occur when your actual class contradicts 
+with the predicted class. 
+
+False Positives (FP) – When actual class is no and predicted class is yes
+
+False Negatives (FN) – When actual class is yes but predicted class in no
+
+Accuracy - Accuracy is the most intuitive performance measure and it is simply a ratio of correctly predicted 
+observation to the total observations. One may think that, if we have high accuracy then our model is best. 
+Yes, accuracy is a great  measure but only when you have symmetric datasets wherevalues of false positive             
+and false negatives are almost same. 
+Therefore, you have to look at other parameters to evaluate the performance of yourmodel.
+
+Accuracy = TP+TN/TP+FP+FN+TN 
+
+Precision - Precision is the ratio of correctly predicted positive observations 
+to the total predicted positive observations
+
+Precision = TP/TP+FP 
+
+Recall​(Sensitivity) -Recall is the ratio of correctly predicted positive observations 
+to the all observations in actual class - yes.
+
+Recall = TP/TP+FN 
+
+F1 score - F1 Score is the weighted average of Precision and Recall.
+
+Therefore this score takes both false positives and false negatives into account
+
+F1 Score = 2*(Recall * Precision) / (Recall + Precision) 
+
+-->ROC Curve :
+
+ROC Curve: Receiver Operating Characteristic(ROC) summarizes the model’s 
+performance by evaluating 
+the trade offs between true positive rate (sensitivity) and false positive rate(1- specificity).
+
+
+		TPR = TP / TP + FN
+
+		FPR = FP / FP + TN
+ 
+For plotting ROC, it is advisable to assume p > 0.5 since we are more concerned about 
+success rate. 
+ROC summarizes the predictive power for all possible values of p > 0.5.  
+The area under curve (AUC), referred to as index of accuracy(A) 
+is a perfect performance metric for ROC curve. Higher the area under curve, 
+better the prediction power of the model. Below is a sample ROC curve. 
+The ROC of a perfect predictive model has TP equals 1 and FP equals 0. 
+This curve will touch the top left corner of the graph.
+
+
+Decision boundary
+
+Another helpful technique is to plot the decision boundary on top of our predictions to see 
+how our labels compare to the actual labels. This involves plotting our predicted probabilities 
+and coloring them with their true labels.
+
+
+
+                        
