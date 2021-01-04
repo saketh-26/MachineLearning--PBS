@@ -1,0 +1,12 @@
+Use the given dataset which includes Country's GDP,Fertility rate and Population.
+
+Your goal is to predict the life expectancy in a given region by considering target variable as "life" 
+and feature variable as "fertility".
+
+1)Apply Linear Regression to the given dataset without splitting dataset
+2)Check the R squared score
+3)Split the dataset into training and testing sets.
+4)Check the R squared score
+5)Finally take any value for fertility and predict the life.
+
+
