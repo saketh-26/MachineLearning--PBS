@@ -1,0 +1,161 @@
+As the name suggests it is a classifier based on a series of logical decisions,which resembles a tree 
+with the branches..
+
+A decision tree is used for multi-dimensional analysis with multiple class.
+It is characterized by fast
+execution time and ease in the implementation of the rules.
+
+A tree is a collection of entities called nodes.
+
+Every node will have its own value or data,and it might or might not possess a child node.
+If a rootnode is connected to any other node,that root will become the Parent node and
+the connected one will be the child node.
+
+Terminal nodes are the nodes without children,as 
+they are the last or end or the bottom nodes of the tree.
+
+Decision Tree Types: 1)Categorical variable Decision tree(categorical target variable) 
+2)Continuous Decision tree(continuous target variable)
+
+
+Popular Decision Tree Algorithms:
+
+1.CART (Classification and Regression Trees) — This makes use of Gini impurity as metric.
+2.ID3 (Iterative Dichotomiser 3) — This uses entropy and information gain as metric
+
+Entropy --> Measure of the impurities
+
+Information Gain -->Entropy(S) - Weightedavg * Entropy of each feature..
+Entropy   -->  summation (i =1 to c) -plog(base2)p(i)
+
+			where c rep the number of diff class labels and p refers to the proportion of values falling
+			into the ith class label.
+
+Gini(E) = 1 - (Σj = 1 to c)p^2 j
+
+Gini impurity tends to isolate the most frequent class in its own branch of the tree,while
+entropy tends to produce slightly more balanced trees.
+
+However, Gini Impurity is calculated with less computation, i.e., no logarithmic function is involved. That is it!
+
+
+When Italian statistician - and former fascist - Corrado Gini died in Rome on 13 March 1965, 
+he could not have known that 50 years on, 
+the UN would still use his name in their annual rankings of nations.
+
+It is a way of comparing how distribution of income in a society compares with a similar society 
+in which everyone earned exactly the same amount. 
+Inequality on the Gini scale is measured between 0, where everybody is equal, and 1, 
+where all the country's income is earned by a single person.
+
+Gini Index :It provides an index to measure inequality.
+GINI works well with categorical target variable "Success" or "Failure"
+It performs only binary splits.
+
+Steps to calculate Gini for a split:
+-->Calculate Gini for sub-nodes ,using formula sum of square of probability for success 
+and failure (p^2+q^2)    ->p - success,q - failure
+-->Calculate Gini for split using weighted Gain score of each node of that split.
+
+E.g: We want to segregate the students based on the target variable (playing Football or not)
+     ->Split on Gender  ->Split on Class
+
+-Split on gender:                                      
+
+	Students = 30,Play football = 15
+	
+	Female ->10 	   and Male->20 
+	play football       play football (13)
+         (2) ->0.2%(2/10)           ->13/20 ->0.65
+
+->Calculate Gini for sub-node female  = 0.2*0.2(play) + 0.8*0.8(not play) = 0.68
+->Gini for sub-node male  = 0.65*0.65 + 0.35*0.35 = 0.55
+
+->Cal weighted gini for Split gender =10/30*0.68+20/30*0.55  --->0.59
+
+Split on class :
+
+          class ix: students = 14,play football = 6(6/14= 0.43)
+          class x:  students = 16,play football = 9(9/16 = 0.56)
+
+
+->Gini for sub-node class ix = 0.43*0.43+0.57*0.57 = 0.51
+->Gini for sub-node class x = 0.56*0.56+0.44*0.44 = 0.51
+->Cal weighted gini for split class = 14/30 * 0.51 +16/30*0.51  ----> 0.51
+
+From the above we can see the Gini score for split on gender is higher (0.59 >0.51)
+than Split on class.Hence node split will
+take place on Gender.
+
+Information Gain:
+
+Information gain is created on the basis of the decrease in entropy(S) 
+after a dataset is split.Constructing a decision tree
+is all about finding an attribute that returns the highest information gain.
+Let us consider the same above example:
+
+Steps :
+->Calculate entropy of parent node
+->Calculate entropy of each individual node of split and calculate weighted average 
+of all subnodes available in split.
+
+
+Students = 30,Play football = 15
+
+Female ->10 	           and Male->20 
+	play football      play football (13)
+         (2)           
+
+
+Entropy = -plog(base2)p - qlog(base2)q  
+where p and q are the probability of success and failure respectively in that node.
+
+->Entropy for parent node = -15/30log2(15/30) - 15/30log2(15/30) --> 1 [Impure node] it divides 50%
+->Entropy for female node = -2/10log2(2/10) -8/10log2(8/10) --> 0.72
+->Entropy for male node = -13/20log2(13/20) - 7/20log2(7/20) -->0.93
+
+-->Entropy for split gender = weighted entropy of sub-nodes
+                
+		-->10/30 * 0.72 + 20/30 * 0.93 -->0.86
+
+->Information gain -> 1 - Entropy = 0.14 (Split on Gender) 
+
+	  class ix: students = 14, play football = 6	
+          	class x:  students = 16, play football = 9
+
+->Entropy for split on class ix -->-6/14log2(6/14)-8/14log2(8/14) ->0.98
+-->Entropy for split on class x -->-9/16log2(9/16) - 7/16log2(7/16) -->0.99
+
+->Entropy for split class --> 14/30 * 0.98 + 16/30 * 0.99 --> 0.99
+-->Information Gain --> 1 - 0.99 -->0.01
+
+Split gender --> 0.14 Split Class ---> 0.01
+
+Split on gender is our root node.
+
+
+Main steps are as follows :
+
+-->Begin with your training dataset, which should have some feature variables and 
+classification or regression output.
+
+-->Determine the “best feature” in the dataset to split the data on; 
+more on how we define “best feature” later [selecting the root node]
+
+-->Split the data into subsets that contain the possible values for this best feature. 
+
+-->This splitting basically defines a node on the tree i.e each node is a splitting point based on a 
+certain feature from our data.
+
+-->Recursively generate new tree nodes by using the subset of data created from step 3. 
+
+-->We keep splitting until we reach a point where we have optimised, by some measure, 
+maximum accuracy while minimising the number of splits / nodes.
+
+
+The main driver for identifying the the feature is that the data should be split in such a way
+that the partitions created by the split should contain examples belonging to a single class.
+
+Difference between Gini or Entropy is first thing is gini impurity is slightly faster to compute and it
+isolates the most frequent class to its own branch of the tree,while entropy tends to produce
+slightly ,more balanced trees.
