@@ -1,0 +1,106 @@
+k-NN is a type of instance-based learning, or lazy learning, where the function is 
+
+only approximated locally and all computation is deferred until classification.
+
+The neighbors are taken from a set of objects for which the class (for k-NN classification).
+
+This can be thought of as the training set for the algorithm, though 
+
+no explicit training step is required.
+
+A peculiarity of the k-NN algorithm is that it is sensitive to the local structure of the data.
+
+K nearest neighbors or KNN Algorithm is a simple algorithm which uses the entire dataset 
+
+in its training phase. 
+
+Whenever a prediction is required for an unseen data instance, it searches through the entire training
+
+dataset for k-most similar instances and the data with the most similar instance is 
+
+finally returned as the prediction
+
+
+Implementation:
+
+In the knn algorithm,the class label of the test data elements is decided by the class label of
+
+the training data 
+
+elements which are neighbouring (similar in nature).But we have two challenges :
+
+-->What is the basis of this similarity or when can we say that two data elements are similar?
+
+-->How many similar elements should be considered for deciding the class label of each test 
+
+data element?
+
+To answer these questions A commonly used distance metric for continuous variables is Euclidean distance. 
+
+For discrete variables, such as for text classification, another metric can be used, such as the 
+
+overlap metric (or Hamming distance).
+
+To check out how many similar elements to be considered,we need to check the value
+
+of 'k'which is a user defined parameter given as an input to the algorithm.
+
+In the KNN algorithm the value of 
+
+'k' is 3 indicates the number of neighbour that need to be considered.For example the value of k is 3,only three nearest 
+
+neighbours or three training data elements closest to the test data elements are considered.Out of the three data
+
+elements,the class label of that data element is directly assigned to the test data element.
+
+Consider d1 and d2 as data elements and features i have as f1 and f2
+
+
+Formula for Euclidean distance :sqrt((f11 - f12)^2 + (f21 - f22)^2)
+
+f11 - value of feature f1 for data element d1
+
+f12 - value of feature f1 for data element d2
+
+f21 - value of feature f2 for data element d1 
+
+f22 - value of feature f2 for data element d2
+
+
+	Hamming Distance :Calculate the distance between binary vectors or it 
+
+	is the distance between two strings of equal length is the number of positions at which the
+
+	corresponding symbols are different. In other words, it measures the minimum 
+
+	number of substitutions required to change one string into the other, or the minimum number 
+
+	of errors that could have transformed one string into the other.
+
+
+
+	Manhattan Distance: A taxicab geometry is a form of geometry in which the usual distance function or 
+
+	metric of Euclidean geometry is replaced by a new metric in which the distance between two points is the
+
+	sum of the absolute differences of their Cartesian coordinates. 
+
+
+	d(1)(p,q)=||{p} - {q}||(1) = sum _{i=1}^{n} |p_{i}-q_{i}|,  where (p,q) are vectors p =(p1,p2,p3....pn) and 
+
+	q = (q1,q2,q3...qn)
+
+
+	The Minkowski distance is a metric in a normed vector space which can be considered as a generalization 
+
+	of both the Euclidean distance and the Manhattan distance.
+
+
+Euclidean is a good distance measure to use if the input variables are similar in type 
+
+(e.g. all measured widths and heights). 
+
+
+Manhattan distance is a good measure to use if the input variables are not similar in type 
+
+(such as age, gender, height, etc.,)
